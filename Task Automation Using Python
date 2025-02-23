@@ -1,35 +1,6 @@
 import os
-import shutil
-from datetime import datetime
+import shuti
 
-# Set the path to the folder you want to organize.
-TARGET_FOLDER = "/path/to/your/folder"
+target_folder='./Icons'
+extensions={item.split('.')[-1] for item in os.listdir(target_folder) if os.path.isfile(os.path.join(target_folder, item)
 
-def organize_by_date(folder):
-    """
-    Organizes files in the specified folder by their last modification date.
-    Files are moved into subfolders named by year-month (e.g., '2025-02').
-    """
-    for item in os.listdir(folder):
-        item_path = os.path.join(folder, item)
-        
-        # Skip directories.
-        if os.path.isdir(item_path):
-            continue
-        
-        # Get the last modification time of the file.
-        mtime = os.path.getmtime(item_path)
-        file_date = datetime.fromtimestamp(mtime)
-        
-        # Create a folder name based on the year and month.
-        folder_name = file_date.strftime('%Y-%m')
-        destination_dir = os.path.join(folder, folder_name)
-        os.makedirs(destination_dir, exist_ok=True)
-        
-        # Move the file to the appropriate folder.
-        shutil.move(item_path, os.path.join(destination_dir, item))
-        print(f"Moved '{item}' to '{destination_dir}'")
-
-if __name__ == "__main__":
-    organize_by_date(TARGET_FOLDER)
-    print("File organization complete.")
